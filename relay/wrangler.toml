@@ -1,0 +1,6 @@
+# Optional: deploy the relay from the command line instead of the Cloudflare dashboard.
+#   npm install -g wrangler
+#   cd relay && wrangler login && wrangler deploy
+name = "digiverse-relay"
+main = "worker.js"
+compatibility_date = "2025-01-01"

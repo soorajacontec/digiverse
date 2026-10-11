@@ -1,0 +1,33 @@
+{
+  "id": "./",
+  "name": "Digiverse — Our Solar System",
+  "short_name": "Digiverse",
+  "description": "Live, animated guide to our solar system: 102 planets, moons, asteroids and comets, spacecraft, live sky, space weather and an unusual-events tracker.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#07080f",
+  "theme_color": "#07080f",
+  "categories": ["education", "science", "weather"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "screenshots": [
+    { "src": "screenshots/mobile.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "Animated solar system with time machine" },
+    { "src": "screenshots/mobile-live.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "Unusual events tracker" },
+    { "src": "screenshots/desktop.png", "sizes": "1280x800", "type": "image/png", "form_factor": "wide", "label": "Tablet layout: solar system and live sky" }
+  ],
+  "shortcuts": [
+    { "name": "Tonight's sky", "short_name": "Live sky", "url": "./#sky", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Unusual events", "short_name": "Unusual", "url": "./#watch", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Live data", "short_name": "Live data", "url": "./#live", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "All worlds", "short_name": "Worlds", "url": "./#worlds", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

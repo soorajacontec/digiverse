@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digiverse · Page not found</title>
+<style>
+  body { margin:0; min-height:100vh; display:grid; place-items:center; background:#07080f; color:#ebe8f3; font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; text-align:center; padding:24px }
+  a { color:#f2b441 }
+</style>
+<script>
+  // GitHub Pages serves this for unknown paths: send visitors to the app at the site root of this repository
+  (function () {
+    var parts = location.pathname.split("/").filter(Boolean);
+    var base = location.hostname.endsWith("github.io") && parts.length ? "/" + parts[0] + "/" : "/";
+    if (location.pathname !== base) location.replace(base);
+    document.addEventListener("DOMContentLoaded", function () { document.getElementById("home").href = base; });
+  })();
+</script>
+</head>
+<body>
+  <p>That page doesn't exist. <a id="home" href="/">Open Digiverse</a></p>
+</body>
+</html>
