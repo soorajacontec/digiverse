@@ -6,6 +6,10 @@
 
 ![Digiverse on a phone](screenshots/mobile.png)
 
+## Digiverse Live Application
+
+**[▶ Open the live app](https://soorajacontec.github.io/digiverse/)**
+
 ## Features
 
 - **Animated solar system** with a time machine (1800–2300), real-time mode with a microsecond clock, and zoom from the inner planets out to Sedna and the Voyagers.
