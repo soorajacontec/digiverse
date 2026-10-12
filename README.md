@@ -23,26 +23,9 @@
 - **Themes:** Light, Dark and Blue neon. **Layouts:** Mobile (portrait), Tablet (landscape split view) or Auto.
 - **Installable PWA:** works offline after the first visit, app shortcuts, update prompt, no build step, no tracking.
 
-## Put it on GitHub Pages (5 minutes)
+## PDigiverse Live App
 
-1. Create a new repository on GitHub, for example `digiverse` (public, so Pages is free).
-2. Upload everything in this folder, **including the hidden `.github` folder and `.nojekyll` file**.
-   - Command line: see below.
-   - Website: *Add file → Upload files*, then drag the folder contents in. If `.github` doesn't upload, create `.github/workflows/pages.yml` with *Add file → Create new file* and paste its contents.
-3. Open **Settings → Pages** and set **Source** to **GitHub Actions**.
-4. The **Deploy to GitHub Pages** workflow runs automatically (see the **Actions** tab). When it finishes, your app is live at
-   `https://<your-username>.github.io/digiverse/`
-
-Every later push to `main` redeploys, and installed copies pick up the new version the next time they're opened.
-
-```bash
-cd digiverse
-git init -b main
-git add .
-git commit -m "Digiverse: initial release"
-git remote add origin https://github.com/<your-username>/digiverse.git
-git push -u origin main
-```
+**[▶ Open the live app](https://soorajacontec.github.io/digiverse/)**
 
 ## Install it as an app
 
