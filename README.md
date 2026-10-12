@@ -23,7 +23,7 @@
 - **Themes:** Light, Dark and Blue neon. **Layouts:** Mobile (portrait), Tablet (landscape split view) or Auto.
 - **Installable PWA:** works offline after the first visit, app shortcuts, update prompt, no build step, no tracking.
 
-## PDigiverse Live App
+## Digiverse Live App
 
 **[▶ Open the live app](https://soorajacontec.github.io/digiverse/)**
 
