@@ -15,7 +15,10 @@ const ALLOWED_HOSTS = {
   "celestrak.org": 7200,                   // CelesTrak asks for at most one download per 2 h
   "services.swpc.noaa.gov": 120,
   "ll.thespacedevs.com": 900,              // Launch Library free tier: 15 requests/hour
-  "eonet.gsfc.nasa.gov": 900
+  "eonet.gsfc.nasa.gov": 900,
+  "ccmc.gsfc.nasa.gov": 600,               // NASA DONKI space-weather database (new home since Sep 2026)
+  "earthquake.usgs.gov": 300,
+  "aviationweather.gov": 600               // airport weather reports (backup for the globe)
 };
 
 const CORS = {

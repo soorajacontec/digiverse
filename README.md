@@ -4,16 +4,17 @@
 
 102 worlds on real orbits — 8 planets, 43 moons, 6 dwarf planets, 18 asteroids, 11 trans-Neptunian objects and 16 comets, including all three known interstellar visitors — plus 13 deep-space spacecraft, the live sky above you, mission control tracking from NASA, JPL and NOAA, and an unusual-events tracker that alerts you when something out of the ordinary happens beyond Earth.
 
-![Digiverse on a phone](screenshots/mobile.png)
-
-## Digiverse Live Application
-
-**[▶ Open the live app](https://soorajacontec.github.io/digiverse/)**
+<p>
+  <img src="screenshots/mobile.png" alt="Digiverse solar system on a phone" width="260">
+  <img src="screenshots/mobile-earth.png" alt="Live Earth globe with weather" width="260">
+  <img src="screenshots/mobile-live.png" alt="Unusual events tracker" width="260">
+</p>
 
 ## Features
 
 - **Animated solar system** with a time machine (1800–2300), real-time mode with a microsecond clock, and zoom from the inner planets out to Sedna and the Voyagers.
 - **Detail sheet for every world:** facts, live position, orbit data, moon-system diagram, live Wikipedia summary, NASA photo gallery and official JPL data.
+- **Live Earth globe:** a rotating Earth with real day and night. Drag to turn, pinch to zoom, tap any place for a glass window with its live weather, 12-hour temperature, air quality and sunrise/sunset. Layers: Weather (clouds and rain), Heat, Wind, Rain, Clouds, Air quality, Earthquakes (USGS), Aurora (NOAA OVATION) and Fires & volcanoes (NASA EONET). Strong earthquakes (M6+) raise an alert.
 - **Tonight's sky** for your location: sky map, Sun and Moon times, moon phase, visible planets, live space station position, clouds, aurora chances and a stargazing score.
 - **Mission control:** unusual events, launches with countdowns, satellite passes over you, the Sun right now, asteroid watch, Earth events, exoplanets, crew in space, deep-space spacecraft, space agencies and NASA image search.
 - **Unusual events tracker:** ten sources checked every 10 minutes, ranked High / Notable / Info, with pop-up, in-app and phone notifications.
@@ -63,7 +64,7 @@ Then open the address it prints. `localhost` counts as secure, so install and of
 
 ## Deep links
 
-Add these to the app address: `#sky`, `#live`, `#watch`, `#launches`, `#spacecraft`, `#feed`, `#worlds`, `#time`, or a world's id such as `#saturn`, `#europa`, `#halley`, `#apophis`.
+Add these to the app address: `#earth`, `#quakes`, `#sky`, `#live`, `#watch`, `#launches`, `#spacecraft`, `#feed`, `#worlds`, `#time`, or a world's id such as `#saturn`, `#europa`, `#halley`, `#apophis`.
 
 ## Live data sources
 
@@ -77,18 +78,23 @@ Add these to the app address: `#sky`, `#live`, `#watch`, `#launches`, `#spacecra
 | Impact-risk list | JPL Sentry | no | needs relay |
 | Fireballs | JPL Fireball | no | needs relay |
 | Deep-space probes | JPL Horizons spacecraft ephemerides | no | needs relay (stored positions used otherwise) |
-| Solar flares, CMEs, storm alerts | NASA DONKI | DEMO_KEY (add your own free key in Data settings) | yes |
+| Solar flares, CMEs, storm alerts | NASA DONKI at ccmc.gsfc.nasa.gov/DONKI-API (moved from api.nasa.gov on 30 Sep 2026) | no | yes (relay optional) |
 | Photo galleries and search | NASA Image and Video Library | no | yes |
 | Natural events on Earth | NASA EONET | no | yes |
 | Earth imagery | NASA GIBS (VIIRS true colour) | no | yes |
-| The Sun right now | Helioviewer (NASA SDO), SDO latest images | no | yes |
+| The Sun right now | Helioviewer (NASA SDO); NOAA GOES-19 SUVI as backup | no | yes |
 | X-ray flux, solar wind, NOAA scales, Kp | NOAA SWPC | no | yes |
 | Satellites, ISS / Tiangong passes | CelesTrak TLEs + satellite.js | no | yes (relay optional) |
 | ISS live position | Where the ISS at? | no | yes |
 | Launches, people in space | The Space Devs Launch Library 2 (15 requests/hour, cached) | no | yes |
 | Space news | Spaceflight News API | no | yes |
 | Exoplanets | NASA Exoplanet Archive (TAP) | no | yes (relay optional) |
-| Weather, city search | Open-Meteo | no | yes |
+| Weather, city search, globe weather layers, air quality | Open-Meteo forecast, air-quality and geocoding APIs | no | yes |
+| Weather backup (60 airports) | NOAA Aviation Weather Center METAR API | no | yes (relay optional) |
+| Earthquakes | USGS earthquake feeds (M4.5+ week, M2.5+ day) | no | yes |
+| Aurora forecast | NOAA SWPC OVATION | no | yes |
+| Place names on the globe | OpenStreetMap Nominatim (only on your tap, max 1 per second, cached; can be switched off in Data settings); built-in Natural Earth country map offline | no | yes |
+| Name of your GPS location | BigDataCloud client reverse geocoding (device location only, as its terms require) | no | yes |
 | Summaries | Wikipedia REST API | no | yes |
 | Space agencies directory | Built-in facts, with links to each agency's open-data portals | — | yes |
 
@@ -108,6 +114,18 @@ NASA JPL's APIs don't send the CORS headers browsers require, so the app can't r
 **Command line:** `npm i -g wrangler && cd relay && wrangler login && wrangler deploy`
 
 Then open **Data settings** in Digiverse (bell → settings) and paste the worker address, for example `https://digiverse-relay.<you>.workers.dev`.
+
+## Checking the data feeds
+
+Open **Service status** (front-page tile, Data settings, or `#status`) to test every feed from your own device. Each shows *Working* with its response time, *Problem* with the reason (HTTP error, rate limit, blocked, wrong format), or *Needs relay* for NASA JPL.
+
+Findings from the check on 12 Oct 2026, already handled in the app:
+- NASA DONKI moved to `https://ccmc.gsfc.nasa.gov/DONKI-API/get/…`; the old `api.nasa.gov/DONKI` address now redirects to a notice page.
+- The SDO "latest" images stopped updating on 21 Sep 2026, so the Sun backup now uses NOAA GOES-19 SUVI images (a new frame every 4 minutes).
+- CelesTrak refuses repeat downloads within 2 hours and firewalls addresses with many errors, so the app waits 2 hours after any CelesTrak error and uses its stored ISS orbit meanwhile.
+- NOAA's 1-minute Kp feed can lag; readings older than 3 hours are replaced by the 3-hourly Kp.
+- BigDataCloud's free API may only name the device's own location, so tapped places on the globe use OpenStreetMap instead.
+- Weather backup: when Open-Meteo can't be reached or hits its limit, the globe uses live airport weather reports (METAR) from NOAA's Aviation Weather Center for 60 airports worldwide. It shows the nearest airport's report for a tapped place and builds the Heat, Wind, Rain, Clouds and Weather maps from them. In Claude's preview, a stored set of these reports is shown instead.
 
 ## Unusual events tracker
 
@@ -137,12 +155,12 @@ relay/                  optional Cloudflare Worker for NASA JPL APIs
 
 ## Updating
 
-Edit, commit and push. The page itself is always fetched fresh when online, so changes to `index.html` reach installed apps on their next launch, with an "updated" notice. If you change icons, screenshots or other static files, also raise `VERSION` in `sw.js` (for example `digiverse-v15`).
+Edit, commit and push. The page itself is always fetched fresh when online, so changes to `index.html` reach installed apps on their next launch, with an "updated" notice. If you change icons, screenshots or other static files, also raise `VERSION` in `sw.js` (for example from `digiverse-v18` to `digiverse-v19`).
 
 ## Privacy
 
-No accounts, analytics or tracking. Settings, your location choice and alert history are stored only in your browser. Your location is used to calculate your sky and to ask Open-Meteo for local weather.
+No accounts, analytics or tracking. Settings, your location choice and alert history are stored only in your browser. Your location is used to calculate your sky and to ask Open-Meteo for local weather; if you use GPS, BigDataCloud is asked for the name of that place. When you tap the globe, the tapped coordinates go to Open-Meteo for weather and, unless you switch it off in Data settings, to OpenStreetMap Nominatim for the place name. Airport weather reports come from NOAA's Aviation Weather Center and don't include your location.
 
 ## Licence and credits
 
-Code: MIT (see `LICENSE`). Data: NASA, JPL, NOAA SWPC, ESA, CelesTrak, The Space Devs, Spaceflight News API, Open-Meteo, Helioviewer, Where the ISS at? and Wikipedia (text under CC BY-SA 4.0), each under its own terms. Orbit calculations use NASA JPL's published elements; satellite positions use satellite.js.
+Code: MIT (see `LICENSE`). Data: NASA, JPL, NOAA SWPC, ESA, CelesTrak, The Space Devs, Spaceflight News API, Open-Meteo, Helioviewer, Where the ISS at? and Wikipedia (text under CC BY-SA 4.0), each under its own terms. Orbit calculations use NASA JPL's published elements; satellite positions use satellite.js. The globe uses d3-geo and topojson-client with Natural Earth country outlines (public domain) from world-atlas.

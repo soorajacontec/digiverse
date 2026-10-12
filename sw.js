@@ -6,7 +6,7 @@
  * - Live data and images from other sites: network-first, last good copy when offline.
  * Bump VERSION when you change icons or other static files.
  */
-const VERSION = "digiverse-v14";
+const VERSION = "digiverse-v18";
 const SHELL = [
   "./", "./index.html", "./offline.html", "./manifest.webmanifest",
   "./icons/icon.svg", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/maskable-512.png",
